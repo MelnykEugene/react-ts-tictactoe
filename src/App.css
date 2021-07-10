@@ -53,15 +53,24 @@ body {
 .history-container button {
   pointer-events: none;
 }
-.history-board {
+.history-container {
+  margin-top: 20px;
+  background-color: lightgray;
   display: flex;
   flex-flow: row wrap;
 }
 
 .history-board {
+  cursor: pointer;
   display: inline-block;
-  margin: 30px;
   opacity: 70%;
+  padding: 10px;
+  margin: 20px;
+}
+
+.history-board-selected {
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.6);
 }
 .history-board:hover {
   opacity: 100%;

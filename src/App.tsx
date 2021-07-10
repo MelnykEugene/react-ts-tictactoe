@@ -130,11 +130,18 @@ const Board: React.FC<{
   state: IBoardState;
   gameBoard: boolean;
   setState?: React.Dispatch<React.SetStateAction<IBoardState>>;
-}> = ({ state, gameBoard, setState }) => {
+  selectedHistory?: boolean;
+}> = ({ state, gameBoard, setState, selectedHistory }) => {
   const { clickHandler } = useContext(AppContext);
+  let classname = "game-board";
+  if (!gameBoard)
+    classname = selectedHistory
+      ? "history-board history-board-selected"
+      : "history-board";
+
   return (
     <div
-      className={gameBoard ? "game-board" : "history-board"}
+      className={classname}
       onClick={
         !gameBoard
           ? () => {
@@ -227,7 +234,7 @@ const Square: React.FC<SquareProps> = ({ id, value, highlight }) => {
 };
 
 const History: React.FC<{ history: IBoardState[] }> = ({ history }) => {
-  const { setState } = useContext(AppContext);
+  const { state, setState } = useContext(AppContext);
   return (
     <>
       <h2 className="history-label">game history:</h2>
@@ -239,6 +246,7 @@ const History: React.FC<{ history: IBoardState[] }> = ({ history }) => {
             setState={() => {
               setState(history[i]);
             }}
+            selectedHistory={i === state.moveNumber}
           />
         ))}
       </div>
